@@ -9,10 +9,10 @@ import "@openzeppelin/contracts/utils/cryptography/MerkleProof.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-// @author codingwithdidem
-// @contact codingwithdidem@gmail.com
+// @author twitter.com/SamuelOrisamika
+// @contact samolubunmi202@gmail.com
 
-contract BoredApe is 
+contract SeemeoGenesis is 
     ERC721, 
     Ownable, 
     ReentrancyGuard, 
@@ -25,10 +25,10 @@ contract BoredApe is
     
     address proxyRegistryAddress;
 
-    uint256 public maxSupply = 100;
+    uint256 public maxSupply = 2222;
 
     string public baseURI; 
-    string public notRevealedUri = "ipfs://QmYUuwLoiRb8woXwJCCsr1gvbr8E21KuxRtmVBmnH1tZz7/hidden.json";
+    string public notRevealedUri = "ipfs://QmcJsuW5iuKD58RyRiwk4MNcaminaakxgwFPamonxsBkpC/";
     string public baseExtension = ".json";
 
     bool public paused = false;
@@ -39,19 +39,19 @@ contract BoredApe is
     uint256 presaleAmountLimit = 3;
     mapping(address => uint256) public _presaleClaimed;
 
-    uint256 _price = 10000000000000000; // 0.01 ETH
+    uint256 _price = 190000000000000000; // 0.01 ETH
 
     Counters.Counter private _tokenIds;
 
     uint256[] private _teamShares = [25, 35, 40]; // 3 PEOPLE IN THE TEAM
     address[] private _team = [
-        0x933572D5F83B00A998102b7bf1a99c0f197E685B, // Admin Account gets 25% of the total revenue
-        0x82de9CE4a49fFeC4C41Cf733126F618eD83a879C, // Test Account gets 35% of the total revenue
-        0x8a7aC9834e2D4487Da22Dc130C97Ee8fBDc85568 // VIP Account gets 40% of the total revenue
+        0x9eC26Ed2A7fc19348dd9457443c0cb0608e90b6A, // Admin Account gets 25% of the total revenue
+        0x430eD645762C350b68c4716459c069c6f8686119, // SeemeoToken Account gets 35% of the total revenue
+        0x4A5B74A2922aFe8D79bF340915ace744Ff27CC16 // Development & Community Account gets 40% of the total revenue
     ];
 
     constructor(string memory uri, bytes32 merkleroot, address _proxyRegistryAddress)
-        ERC721("BoredApe", "APE")
+        ERC721("SeemeoGenesis", "SGP")
         PaymentSplitter(_team, _teamShares) // Split the payment based on the teamshares percentages
         ReentrancyGuard() // A modifier that can prevent reentrancy during certain functions
     {
@@ -113,24 +113,24 @@ contract BoredApe is
     isValidMerkleProof(_proof)
     onlyAccounts
     {
-        require(msg.sender == account,          "CryptoPunks: Not allowed");
-        require(presaleM,                       "CryptoPunks: Presale is OFF");
-        require(!paused,                        "CryptoPunks: Contract is paused");
+        require(msg.sender == account,          "SeemeoGenesis: Not allowed");
+        require(presaleM,                       "SeemeoGenesis: Presale is OFF");
+        require(!paused,                        "SeemeoGenesis: Contract is paused");
         require(
-            _amount <= presaleAmountLimit,      "CryptoPunks: You can't mint so much tokens");
+            _amount <= presaleAmountLimit,      "SeemeoGenesis: You can't mint so much tokens");
         require(
-            _presaleClaimed[msg.sender] + _amount <= presaleAmountLimit,  "CryptoPunks: You can't mint so much tokens");
+            _presaleClaimed[msg.sender] + _amount <= presaleAmountLimit,  "SeemeoGenesis: You can't mint so much tokens");
 
 
         uint current = _tokenIds.current();
 
         require(
             current + _amount <= maxSupply,
-            "CryptoPunks: max supply exceeded"
+            "SeemeoGenesis: max supply exceeded"
         );
         require(
             _price * _amount <= msg.value,
-            "CryptoPunks: Not enough ethers sent"
+            "SeemeoGenesis: Not enough ethers sent"
         );
              
         _presaleClaimed[msg.sender] += _amount;
@@ -145,19 +145,19 @@ contract BoredApe is
     payable
     onlyAccounts
     {
-        require(publicM,                        "CryptoPunks: PublicSale is OFF");
-        require(!paused, "CryptoPunks: Contract is paused");
-        require(_amount > 0, "CryptoPunks: zero amount");
+        require(publicM,                        "SeemeoGenesis: PublicSale is OFF");
+        require(!paused, "SeemeoGenesis: Contract is paused");
+        require(_amount > 0, "SeemeoGenesis: zero amount");
 
         uint current = _tokenIds.current();
 
         require(
             current + _amount <= maxSupply,
-            "CryptoPunks: Max supply exceeded"
+            "SeemeoGenesis: Max supply exceeded"
         );
         require(
             _price * _amount <= msg.value,
-            "CryptoPunks: Not enough ethers sent"
+            "SeemeoGenesis: Not enough ethers sent"
         );
         
         
