@@ -11,9 +11,9 @@ const keccak256 = require('keccak256')
 const whitelist = require('./whitelist.js')
 
 async function main() {
-  const nftFactory = await hre.ethers.getContractFactory('BoredApe')
+  const nftFactory = await hre.ethers.getContractFactory('SeemeoGenesis')
   const nftContract = await nftFactory.attach(
-    '0x0312e42e4b55823a3C41769DC0B07F382dECc247' // Deployed contract address
+    '0x4eF1AcED6c5C8cE0Fc236B1aB0748A66D7E1E800' // Deployed contract address
   )
 
   // Re-calculate merkle root from the whitelist array.
