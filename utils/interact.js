@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 const { createAlchemyWeb3 } = require('@alch/alchemy-web3')
 const { MerkleTree } = require('merkletreejs')
 const keccak256 = require('keccak256')
@@ -120,13 +121,26 @@ export const publicMint = async (mintAmount) => {
   )
 
   // Set up our Ethereum transaction
+  // const tx = {
+  //   to: config.contractAddress,
+  //   from: window.ethereum.selectedAddress,
+  //   value: parseInt(
+  //     web3.utils.toWei(String(config.price * mintAmount), 'ether')
+  //   ).toString(16), // hex
+  //   data: nftContract.methods.publicSaleMint(mintAmount).encodeABI(),
+  //   nonce: nonce.toString(16)
+  // }
+
   const tx = {
-    to: config.contractAddress,
-    from: window.ethereum.selectedAddress,
-    value: parseInt(
-      web3.utils.toWei(String(config.price * mintAmount), 'ether')
-    ).toString(16), // hex
-    data: nftContract.methods.publicSaleMint(mintAmount).encodeABI(),
+    to: config.contractAddress, 
+    from: window.ethereum.selectedAddress, 
+   
+    gas: web3.utils.toHex('200000'), 
+    gasLimit: web3.utils.toHex(await web3.eth.getBlock("latest")),
+   
+    value: parseInt( web3.utils.toWei(String(config.price * mintAmount),'ether') 
+    ).toString(16), // hex 
+    data: nftContract.methods.publicSaleMint(mintAmount).encodeABI(), 
     nonce: nonce.toString(16)
   }
 
