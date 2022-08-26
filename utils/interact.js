@@ -71,16 +71,20 @@ export const presaleMint = async (mintAmount) => {
     'latest'
   )
 
-  // Set up our Ethereum transaction
+
+
   const tx = {
-    to: config.contractAddress,
-    from: window.ethereum.selectedAddress,
-    value: parseInt(
-      web3.utils.toWei(String(config.price * mintAmount), 'ether')
-    ).toString(16), // hex
+    to: config.contractAddress, 
+    from: window.ethereum.selectedAddress, 
+   
+    gas: web3.utils.toHex('200000'), 
+    gasLimit: web3.utils.toHex(await web3.eth.getBlock("latest")),
+   
+    value: parseInt( web3.utils.toWei(String(config.price * mintAmount),'ether') 
+    ).toString(16), // hex 
     data: nftContract.methods
-      .presaleMint(window.ethereum.selectedAddress, mintAmount, proof)
-      .encodeABI(),
+      .presaleSaleMint(mintAmount)
+      .encodeABI(), 
     nonce: nonce.toString(16)
   }
 
@@ -93,9 +97,9 @@ export const presaleMint = async (mintAmount) => {
     return {
       success: true,
       status: (
-        <a href={`https://rinkeby.etherscan.io/tx/${txHash}`} target="_blank">
+        <a href={`https://etherscan.io/tx/${txHash}`} target="_blank">
           <p>✅ Check out your transaction on Etherscan:</p>
-          <p>{`https://rinkeby.etherscan.io/tx/${txHash}`}</p>
+          <p>{`https://etherscan.io/tx/${txHash}`}</p>
         </a>
       )
     }
@@ -153,9 +157,9 @@ export const publicMint = async (mintAmount) => {
     return {
       success: true,
       status: (
-        <a href={`https://rinkeby.etherscan.io/tx/${txHash}`} target="_blank">
+        <a href={`https://etherscan.io/tx/${txHash}`} target="_blank">
           <p>✅ Check out your transaction on Etherscan:</p>
-          <p>{`https://rinkeby.etherscan.io/tx/${txHash}`}</p>
+          <p>{`https://etherscan.io/tx/${txHash}`}</p>
         </a>
       )
     }
