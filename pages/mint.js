@@ -144,7 +144,7 @@ export default function Mint() {
               </button>
             )}
             <h1 className="font-coiny uppercase font-bold text-3xl md:text-4xl bg-gradient-to-br  from-brand-green to-brand-blue bg-clip-text text-transparent mt-3">
-              {paused ? 'Paused' : isPreSale ? 'Pre-Sale' : 'Public Sale'}
+              {paused ? 'Paused' : isPreSale ? 'Pre-Sale' : 'Pre-Sale'}
             </h1>
             <h3 className="text-sm text-pink-200 tracking-widest">
               {wallet?.accounts[0]?.address
