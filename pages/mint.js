@@ -279,7 +279,7 @@ export default function Mint() {
                 Contract Address
               </h3>
               <a
-                href={`https://rinkeby.etherscan.io/address/${config.contractAddress}#readContract`}
+                href={`https://etherscan.io/address/${config.contractAddress}#readContract`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 mt-4"
