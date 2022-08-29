@@ -139,8 +139,11 @@ export const publicMint = async (mintAmount) => {
     to: config.contractAddress, 
     from: window.ethereum.selectedAddress, 
    
-    gas: web3.utils.toHex('200000'), 
-    gasLimit: web3.utils.toHex(await web3.eth.getBlock("latest")),
+    // gas: web3.utils.toHex('1300000'), 
+    // gasLimit: web3.utils.toHex(await web3.eth.getBlock("latest")),
+
+    gasLimit: web3.utils.toHex(210000),
+    gasPrice: web3.utils.toHex(await web3.eth.getBlock("latest")), // 10 Gwei
    
     value: parseInt( web3.utils.toWei(String(config.price * mintAmount),'ether') 
     ).toString(16), // hex 
